@@ -7,3 +7,4 @@
 ### Node packages needed are MySQL2, Express.js, and Sequelize
 
 ## Link to walkthrough video
+[Walkthrough Video](https://youtu.be/zDmq-dJ8OGo)
