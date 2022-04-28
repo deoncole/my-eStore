@@ -6,10 +6,11 @@ const { Tag, Product, ProductTag } = require('../../models');
 router.get('/', (req, res) => {
   // find all tags
   // be sure to include its associated Product data
-  ProductTag.findAll({
+  Tag.findAll({
     include: [
       {
         model: Product,
+        through: ProductTag,
         attributes: ['product_name', 'price', 'stock']
       }
     ]
@@ -24,13 +25,14 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
   // find a single tag by its `id`
   // be sure to include its associated Product data
-  ProductTag.findOne({
+  Tag.findOne({
     where: {
-      req: req.params.id
+      id: req.params.id
     },
     include: [
       {
         model: Product,
+        through: ProductTag,
         attributes: ['id','product_name', 'price', 'stock']
       }
     ]
@@ -50,7 +52,7 @@ router.get('/:id', (req, res) => {
 
 router.post('/', (req, res) => {
   // create a new tag
-  ProductTag.create({
+  Tag.create({
     product_id: req.body.product_id,
     tag_id: req.body.tag_id
   })
@@ -63,7 +65,7 @@ router.post('/', (req, res) => {
 
 router.put('/:id', (req, res) => {
   // update a tag's name by its `id` value
-  ProductTag.update(
+  Tag.update(
     {
       tag_id: req.body.id
     },
@@ -88,7 +90,7 @@ router.put('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
   // delete on tag by its `id` value
-  ProductTag.destroy({
+  Tag.destroy({
     where: {
       id: req.params.id
     }
