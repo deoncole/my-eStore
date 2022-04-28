@@ -16,10 +16,15 @@ router.get('/', (req, res) => {
       },
       {
         model: Tag,
-        attributes: ['id', 'tag_name']
+        attributes: ['tag_name']
       }
     ]
   })
+  .then(dbProductData => res.json(dbProductData))
+  .catch(err => {
+    console.log(err);
+    res.status(500).json(err);
+  });
 });
 
 // get one product
@@ -37,6 +42,17 @@ router.get('/:id', (req, res) => {
       }
     ]
   })
+  .then(dbProductData => {
+    if(!dbProductData){
+      res.status(400).json({ message: 'No product with that ID found'});
+      return;
+    }
+    res.json(dbProductData);
+  })
+  .catch(err=> {
+    console.log(err);
+    res.status(500).json(err);
+  });
 });
 
 // create new product
